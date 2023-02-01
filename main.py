@@ -9,7 +9,15 @@
 
 import os
 import time
+import ipaddress
 from classes.hackingTools import Portscan
+
+def validate_ipv4_address(address):
+    try:
+        ipaddress.IPv4Address(address)
+        return True
+    except ValueError:
+        return False
 
 # Clear Screen Windows/Linux
 def clearScreen():
@@ -46,7 +54,8 @@ def mainMenu():
                     clearScreen()
                     print("\nPortScan Menu\n")
                     print("1: PortScan One Device")
-                    print("2: PortScan Multiple Devices\n")
+                    print("2: PortScan Multiple Devices")
+                    print("3: PortScan Multiple Devices by Range\n")
                     print("Press X to Exit\n")
                     subChoice = input("Please enter your choice ")
                 
@@ -64,6 +73,26 @@ def mainMenu():
 
                         # Multiple Portscan
                         case "2": 
+                            ipList = []
+                            tempIp = ""
+                            print("\nTool to scan multiple remote host IP addresses")
+                            while tempIp != "x": 
+                                tempIp = input("\nEnter the remote host IP to scan or press X to exit: ")
+                                tempIp = tempIp.lower()
+                                if validate_ipv4_address(tempIp):
+                                    print("Gotcha!")
+                                    ipList.append(tempIp)
+                                elif tempIp == "x":
+                                    break
+                                else:
+                                    print("Invalid IP address, try again.")
+                                   
+
+                            r1 = int(input("\nEnter the start port number: "))
+                            r2 = int(input("\nEnter the last port number: "))
+                            P = Portscan()
+                            P.multiplePortScan(ipList, r1, r2)
+                        case "3": 
                             print("")
                             
                         case "x":
