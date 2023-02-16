@@ -28,7 +28,7 @@ def receive():
             else:
                 print(message)
         except:
-            print("An error occurred!")
+            print(f"{nickname} is disconnected")
             client.close()
             break
 
