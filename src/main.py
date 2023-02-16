@@ -10,7 +10,8 @@
 import os
 import time
 import ipaddress
-from classes.hackingTools import Portscan
+from scripts.classes import Portscan, IM
+
 
 def validate_ipv4_address(address):
     try:
@@ -35,7 +36,7 @@ def mainMenu():
         print("Linguagens de Programacao Dinamica")
         print("Titulo: Trabalho Individual - Aplicacao de Seguranca Informatica")
         print("Autor: David Henriques (23697)\n")
-        print("fSociety - Hacking Tools for Dummies 3000\n")
+        print("Hacking Tools for Dummies 3000\n")
         print("1: Portscaner")
         print("2: Flooder")
         print("3: Logs")
@@ -43,19 +44,18 @@ def mainMenu():
         print("5: Reports\n")
         print("Press X to Exit\n")
         mainChoice = input("Please enter your choice ")
-        
         match mainChoice.lower():
             
             # Portscaner
             case "1":  
 
-                # SubMenu
+                # SubMenu PortScaner
                 while subChoice.lower() != "x":
                     clearScreen()
                     print("\nPortScan Menu\n")
                     print("1: PortScan One Device")
                     print("2: PortScan Multiple Devices")
-                    print("3: PortScan Multiple Devices by Range\n")
+                    #print("3: PortScan Multiple Devices by Range\n")
                     print("Press X to Exit\n")
                     subChoice = input("Please enter your choice ")
                 
@@ -92,12 +92,12 @@ def mainMenu():
                             r2 = int(input("\nEnter the last port number: "))
                             P = Portscan()
                             P.multiplePortScan(ipList, r1, r2)
-                        case "3": 
-                            print("")
-                            
+                        
+                        # Exit Menu    
                         case "x":
                             break
                         
+                        # Wrong Option
                         case _:
                             print("Opcao Invalida ")
                             time.sleep(2)  
@@ -110,9 +110,40 @@ def mainMenu():
                 print("")   
                           
             # Instant Message
-            case "4": 
-                print("")  
+            case "4":
 
+                # SubMenu Instant Message
+                while subChoice.lower() != "x":
+
+                    clearScreen()
+                    print("\nInstant Message\n")
+                    print("1: Launch Server")
+                    print("2: Launch New Client")
+                    #print("3: PortScan Multiple Devices by Range\n")
+                    print("\nPress X to Exit\n")
+                    subChoice = input("Please enter your choice ")
+                
+                    match subChoice.lower():
+                        
+                        # Launch Server (Listening Connections)
+                        case "1":  
+                            I = IM()
+                            I.server()
+                            time.sleep(3)
+
+                        # Launch Clients    
+                        case "2":
+                            I = IM()
+                            I.client()
+                            time.sleep(3)
+
+                        # Exit Menu
+                        case "x":
+                            break
+                        
+                        case _:
+                            print("Opcao Invalida ")
+                            time.sleep(2)  
             # Reports
             case "5":  
                 print("")
