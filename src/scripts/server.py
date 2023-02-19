@@ -30,7 +30,7 @@ print(f'{nickname} from {addr} is connected\n')
 def receive():
     while True:
         message = rsa.decrypt(conn.recv(1024), private_key).decode()
-        saveFile(nickname, message)
+        saveFile(nickname, str(message))
         print(message)
 
 
@@ -39,7 +39,7 @@ def write():
         now = datetime.now()
         timestamp = now.strftime("%H:%M:%S")
         message = f'\033[1;32m[{timestamp}]\u001b[0m - Server: {input("")}'
-        saveFile(nickname, message)
+        saveFile(nickname, str(message))
         sys.stdout.write(CURSOR_UP_ONE) 
         sys.stdout.write(ERASE_LINE)  
         conn.send(rsa.encrypt(message.encode(), public_partner))
@@ -48,7 +48,7 @@ def write():
 def saveFile(nickname, data):
     now = datetime.now()
     timestamp = now.strftime("%d%m%y")
-    f = open("./logs/" + nickname + "_" + timestamp + ".txt", "a")
+    f = open("./export/" + nickname + "_" + timestamp + ".txt", "a")
     f.write(data + '\n')
     f.close()
 
